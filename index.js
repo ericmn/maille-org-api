@@ -8,14 +8,15 @@ let mongoose = require('mongoose');
 let app = express();
 
 // Import routes
-let apiRoutes = require("./api-routes");
+let apiRoutes = require("./routes/api-routes");
 // Configure bodyparser to handle post requests
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
 // Connect to Mongoose and set connection variable
-mongoose.connect('mongodb://localhost/resthub', { useNewUrlParser: true, useUnifiedTopology: true});
+//mongoose.connect('mongodb://localhost/resthub', { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://mailleadmin:iqj9WatHdaab0S4R@mailledb0-b075j.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
 
 // Added check for DB connection
