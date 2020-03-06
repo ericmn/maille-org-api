@@ -8,7 +8,7 @@ router.get('/', function (req, res) {
         message: 'Welcome to RESTHub crafted with love!',
     });
 });
-// Import contact controller
+// Import controller
 var weaveController = require('../controllers/weaveController');
 
 // Export API routes
@@ -19,4 +19,5 @@ router.route('/weaves')
 router.route('/weaves/:id')
     .get(weaveController.fetch)
     .delete(weaveController.delete)
+    
 module.exports = router;

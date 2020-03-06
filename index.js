@@ -9,18 +9,18 @@ let app = express();
 
 // Import routes
 let apiRoutes = require("./routes/api-routes");
+
 // Configure bodyparser to handle post requests
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 // Connect to Mongoose and set connection variable
-mongoose.connect('mongodb+srv://mailleadmin:iqj9WatHdaab0S4R@mailledb0-b075j.mongodb.net/api?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://mailleadmin:iqj9WatHdaab0S4R@mailledb0-b075j.mongodb.net/api?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useCreateIndex', true);
 var db = mongoose.connection;
 
 // Added check for DB connection
-if(!db)
+if (!db)
     console.log("Error connecting db")
 else
     console.log("Db connected successfully")

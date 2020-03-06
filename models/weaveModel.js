@@ -30,25 +30,28 @@ const positionSchema = mongoose.Schema(
 
 const weaveSchema = mongoose.Schema(
     {
-        _id: {
+        id: {
             type: String,
-            default: shortid.generate
+            default: shortid.generate,
+            index: true,
+            unique: true
         },
         name: {
             type: String,
             required: true,
+            index: true,
             unique: true
         },
         aliases: {
             type: [String],
-            required: false
-        }
-        ,
+            required: false,
+            index: true
+        },
         tags: {
             type: [String],
-            required: false
-        }
-        ,
+            required: false,
+            index: true
+        },
         rings: {
             type: [ringSchema],
             required: true
@@ -62,9 +65,25 @@ const weaveSchema = mongoose.Schema(
             required: true
         },
     },
+    { timestamps: true }
 );
 
-var Weave = module.exports = mongoose.model('weave', weaveSchema);
+const weaveSearchQueryMap = {
+    'name': s => ({ '$regex': s, '$options': 'i' }),
+    'aliases': s => ({ '$regex': s, '$options': 'i' }),
+    'tags': s => ({ '$all': s.split(";") })
+};
+weaveSchema.static('search', function (query = {}, ..._) {
+    let filter = {}
+    Object
+        .keys(weaveSearchQueryMap)
+        .filter(key => query[key] !== undefined)
+        .forEach(key => filter[key] = weaveSearchQueryMap[key](query[key]));
+    return this.find(filter, ..._);
+});
+
+module.exports = mongoose.model('weave', weaveSchema);
+
 
 //module.exports.get = function (callback, limit) {
 //    Weave.find(callback).limit(limit);
