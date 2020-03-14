@@ -79,6 +79,7 @@ weaveSchema.static('search', function (query = {}, ..._) {
         .keys(weaveSearchQueryMap)
         .filter(key => query[key] !== undefined)
         .forEach(key => filter[key] = weaveSearchQueryMap[key](query[key]));
+    //console.log(filter)
     return this.find(filter, ..._);
 });
 

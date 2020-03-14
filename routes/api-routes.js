@@ -11,13 +11,17 @@ router.get('/', function (req, res) {
 // Import controller
 var weaveController = require('../controllers/weaveController');
 
+// Import validator
+const { sanitize, validate, redirect, reject } = require("../validators/weaveValidator");
+
 // Export API routes
 router.route('/weaves')
-    .get(weaveController.index)
+    .all(validate, reject, sanitize)
+    .get(weaveController.search)
     .post(weaveController.new)
     .delete(weaveController.delete)
 router.route('/weaves/:id')
     .get(weaveController.fetch)
     .delete(weaveController.delete)
-    
+
 module.exports = router;
