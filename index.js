@@ -1,11 +1,11 @@
 const DB_USERNAME = process.env.DB_USERNAME || 'mailleadmin';
 const DB_PASSWORD = process.env.DB_PASSWORD || 'iqj9WatHdaab0S4R';
+const DB_HOSTNAME = process.env.DB_HOSTNAME || 'mailledb0-b075j.mongodb.net';
 
-//const DB_CONN_STRING = process.env.DB_CONN_STRING || 'mongodb+srv://mailleadmin:iqj9WatHdaab0S4R@mailledb0-b075j.mongodb.net/api?retryWrites=true&w=majority';
-const DB_CONN_STRING = process.env.DB_CONN_STRING || 'mongodb+srv://'+DB_USERNAME+':iqj9WatHdaab0S4R@mailledb0-b075j.mongodb.net/api?retryWrites=true&w=majority';
-//const DB_CONN_STRING = process.env.DB_CONN_STRING || 'mongodb+srv://mailledb0-b075j.mongodb.net/api?retryWrites=true&w=majority';
-console.log(DB_CONN_STRING)
 const PORT = process.env.PORT || 8080;
+
+const DB_CONN_STRING = process.env.DB_CONN_STRING || 'mongodb+srv://'+DB_USERNAME+':'+DB_PASSWORD+'@'+DB_HOSTNAME+'/api?retryWrites=true&w=majority';
+console.log(DB_CONN_STRING)
 
 // Import express
 let express = require('express');
