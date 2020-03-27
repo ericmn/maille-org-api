@@ -9,7 +9,7 @@ const VALID = {
 exports.validate = [
     query('limit').optional().isInt(VALID['limit']),
     query('offset').optional().isInt(VALID['offset']),
-    query('sort').optional()
+    //query('sort').optional()
 ];
 
 exports.reject = (req, res, next) => {
@@ -21,12 +21,12 @@ exports.sanitize = [
     query('limit').optional().toInt(),
     query('offset').optional().toInt()
 ];
-//
+
 //exports.redirect = (req, res, next) => {
 //    console.log('redirect');
 //    const validation = validationResult(req);
 //    console.log(validation.errors);
-//    const data = matchedData(req);
+//    const data = matchedData(req,{includeOptionals: true});
 //    console.log(data)
 //    next();
 //}

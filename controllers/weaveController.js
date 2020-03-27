@@ -12,7 +12,8 @@ const respond = res => function (err, data) { res.json(err ? err : data); };
 
 exports.search = function (req, res) {
     let { limit, offset } = req.query;
-    console.log( limit, offset)
+    console.log('controller');
+    console.log(req.query)
     Weave
         .search(req.query)
         .lean()

@@ -4,7 +4,7 @@ const search = require('./search');
 const components = require('./components');
 const shortid = require('shortid');
 
-const weaveSchema = mongoose.Schema(
+const tutorialSchema = mongoose.Schema(
     {
         id: {
             type: String,
@@ -18,15 +18,14 @@ const weaveSchema = mongoose.Schema(
             index: true,
             unique: true
         },
-        aliases: {
-            type: [String],
-            required: false,
-            index: true
-        },
         tags: {
             type: [String],
             required: false,
             index: true
+        },
+        contributors: {
+            type: [String],
+            required: false
         },
         rings: {
             type: [components.ring],
@@ -35,24 +34,19 @@ const weaveSchema = mongoose.Schema(
         positions: {
             type: [components.position],
             required: true
-        },
-        directions: {
-            type: [components.vector3],
-            required: true
-        },
+        }
     },
     { timestamps: true }
 );
 
 const filterFields = {
     'name': search.byRegexCaseInsensitive,
-    'aliases': search.byRegexCaseInsensitive,
     'tags': search.bySemicolonDelimitedAll
 }
 
-weaveSchema.static('search', function (query, ..._) {
+tutorialSchema.static('search', function (query, ..._) {
     let filter = search.queryToFilter(query, filterFields);
     return this.find(filter, ..._);
 });
 
-module.exports = mongoose.model('weave', weaveSchema);
+module.exports = mongoose.model('tutorial', tutorialSchema);

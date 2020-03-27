@@ -1,23 +1,25 @@
 // api-routes.js
 // Initialize express router
 let router = require('express').Router();
+
 // Set default API response
-router.get('/', function (req, res) {
-    res.json({
-        status: 'API Its Working',
-        message: 'Welcome to RESTHub crafted with love!',
-    });
-});
-// Import controller
-var weaveController = require('../controllers/weaveController');
+//router.get('/', function (req, res) {
+//    res.json({
+//        status: 'API Its Working',
+//        message: 'Welcome to RESTHub crafted with love!',
+//    });
+//});
+const searchValidator = require("../validators/searchValidator");
 
-// Import validator
-const { sanitize, validate, redirect, reject } = require("../validators/weaveValidator");
-
-// Export API routes
+const weaveController = require('../controllers/weaveController');
 router.route('/weaves')
-    .all(validate, reject, sanitize)
-    .get(weaveController.search)
+
+    .get(
+        searchValidator.validate,
+        searchValidator.reject,
+        searchValidator.sanitize,
+        weaveController.search
+    )
     .post(weaveController.new)
     .delete(weaveController.delete)
 router.route('/weaves/:id')
