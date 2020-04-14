@@ -1,11 +1,6 @@
-const DB_USERNAME = process.env.DB_USERNAME || 'mailleadmin';
-const DB_PASSWORD = process.env.DB_PASSWORD || 'iqj9WatHdaab0S4R';
-const DB_HOSTNAME = process.env.DB_HOSTNAME || 'mailledb0-b075j.mongodb.net';
-
-const PORT = process.env.PORT || 8080;
-
-const DB_CONN_STRING = process.env.DB_CONN_STRING || 'mongodb+srv://'+DB_USERNAME+':'+DB_PASSWORD+'@'+DB_HOSTNAME+'/api?retryWrites=true&w=majority';
-console.log(DB_CONN_STRING)
+//Import config
+let config = require('./config');
+const DB_CONN_STRING = 'mongodb+srv://'+config.DB_USERNAME+':'+config.DB_PASSWORD+'@'+config.DB_HOSTNAME+'/api?retryWrites=true&w=majority';
 
 // Import express
 let express = require('express');
@@ -42,6 +37,6 @@ app.get('/', (req, res) => res.send('maille.org database api'));
 app.use('/api', apiRoutes);
 
 // Launch app to listen to specified port
-app.listen(PORT, function () {
-    console.log("maille.org api running on port " + PORT);
+app.listen(config.PORT, function () {
+    console.log("maille.org api running on port " + config.PORT);
 });
