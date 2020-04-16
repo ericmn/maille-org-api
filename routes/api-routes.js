@@ -1,6 +1,6 @@
 // api-routes.js
 // Initialize express router
-let router = require('express').Router();
+let router = require("express").Router();
 
 // Set default API response
 //router.get('/', function (req, res) {
@@ -11,19 +11,21 @@ let router = require('express').Router();
 //});
 const searchValidator = require("../validators/searchValidator");
 
-const weaveController = require('../controllers/weaveController');
-router.route('/weaves')
+const weaveController = require("../controllers/weaveController");
+router
+  .route("/weaves")
 
-    .get(
-        searchValidator.validate,
-        searchValidator.reject,
-        searchValidator.sanitize,
-        weaveController.search
-    )
-    .post(weaveController.new)
-    .delete(weaveController.delete)
-router.route('/weaves/:id')
-    .get(weaveController.fetch)
-    .delete(weaveController.delete)
+  .get(
+    searchValidator.validate,
+    searchValidator.reject,
+    searchValidator.sanitize,
+    weaveController.search
+  )
+  .post(weaveController.new)
+  .delete(weaveController.delete);
+router
+  .route("/weaves/:id")
+  .get(weaveController.fetch)
+  .delete(weaveController.delete);
 
 module.exports = router;
